@@ -6,17 +6,19 @@ export class CsvFileReader {
 
   constructor(private filepath: string, private headers: string[]) {}
 
-  read(): void {
-    fs.createReadStream(require.resolve(this.filepath), { encoding: "utf-8" })
-      .pipe(parse({ delimiter: ",", columns: this.headers }))
-      .on("data", (row: string[]) => {
-        this.data.push(row);
-      })
-      .on("error", (error) => {
-        console.log(error.message);
-      })
-      .on("end", () => {
-        console.log(this.data);
-      });
+  read(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(require.resolve(this.filepath), { encoding: "utf-8" })
+        .pipe(parse({ delimiter: ",", columns: this.headers }))
+        .on("data", (row) => {
+          this.data.push(row);
+        })
+        .on("error", (error) => {
+          reject(error);
+        })
+        .on("end", () => {
+          resolve();
+        });
+    });
   }
 }

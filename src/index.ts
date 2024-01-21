@@ -1,14 +1,18 @@
-import { CsvFileReader } from "./CsvFileReader";
+import { MatchReader } from "./MatchReader";
 
-const reader = new CsvFileReader("../football-stats.csv", [
-  "date",
-  "homeTeam",
-  "awayTeam",
-  "goalsHomeTeam",
-  "goalsAwayTeam",
-  "result",
-  "referee",
-]);
-reader.read();
+const init = async () => {
+  const reader = new MatchReader("../football-stats.csv", [
+    "date",
+    "homeTeam",
+    "awayTeam",
+    "goalsHomeTeam",
+    "goalsAwayTeam",
+    "result",
+    "referee",
+  ]);
+  await reader.read();
 
-console.log(reader.data);
+  console.log(reader.data.length);
+};
+
+init();
