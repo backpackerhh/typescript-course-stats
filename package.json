@@ -6,6 +6,7 @@
     "start": "concurrently npm:start:*"
   },
   "devDependencies": {
+    "@types/node": "^20.11.5",
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.3"
   }
