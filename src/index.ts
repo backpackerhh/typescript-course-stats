@@ -1,22 +1,14 @@
-import fs from "fs";
-import { parse } from "csv-parse";
+import { CsvFileReader } from "./CsvFileReader";
 
-let matches: string[] = [];
+const reader = new CsvFileReader("../football-stats.csv", [
+  "date",
+  "homeTeam",
+  "awayTeam",
+  "goalsHomeTeam",
+  "goalsAwayTeam",
+  "result",
+  "referee",
+]);
+reader.read();
 
-fs.createReadStream(require.resolve("../football-stats.csv"), { encoding: "utf-8" })
-  .pipe(
-    parse({
-      delimiter: ",",
-      columns: ["date", "homeTeam", "awayTeam", "goalsHomeTeam", "goalsAwayTeam", "result", "referee"],
-    })
-  )
-  .on("data", function (row) {
-    matches.push(row);
-  })
-  .on("error", function (error) {
-    console.log(error.message);
-  })
-  .on("end", function () {
-    console.log(matches);
-    console.log("finished");
-  });
+console.log(reader.data);
