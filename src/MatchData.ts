@@ -8,10 +8,12 @@ export type RawMatchData = {
   referee: string;
 };
 
-export type MatchData =
-  | RawMatchData
-  | {
-      date: Date;
-      goalsHomeTeam: number;
-      goalsAwayTeam: number;
-    };
+export type MatchData = {
+  date: Date;
+  homeTeam: string;
+  awayTeam: string;
+  goalsHomeTeam: number;
+  goalsAwayTeam: number;
+  result: string;
+  referee: string;
+};
