@@ -1,6 +1,6 @@
 import { CsvFileReader } from "./CsvFileReader";
-import { MatchData, RawMatchData } from "./MatchData";
-import { parseDate } from "./utils";
+import { MatchData, RawMatchData } from "../MatchData";
+import { parseDate } from "../utils";
 
 export class MatchReader extends CsvFileReader<RawMatchData, MatchData> {
   sanitizeRow(row: RawMatchData): MatchData {

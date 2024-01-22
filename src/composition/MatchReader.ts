@@ -1,11 +1,11 @@
-import { DataReaderInterface } from "./DataReaderInterface";
-import { MatchData, RawMatchData } from "./MatchData";
-import { parseDate } from "./utils";
+import { DataReader } from "./DataReader";
+import { MatchData, RawMatchData } from "../MatchData";
+import { parseDate } from "../utils";
 
-export class MatchReaderWithInterface {
+export class MatchReader {
   matches: MatchData[] = [];
 
-  constructor(public reader: DataReaderInterface<RawMatchData>) {}
+  constructor(public reader: DataReader<RawMatchData>) {}
 
   async load(): Promise<void> {
     await this.reader.read();

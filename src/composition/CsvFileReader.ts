@@ -1,7 +1,7 @@
 import fs from "fs";
 import { parse } from "csv-parse";
 
-export class CsvFileReaderWithInterface<RawDataType> {
+export class CsvFileReader<RawDataType> {
   data: RawDataType[] = [];
 
   constructor(private filepath: string, private headers: string[]) {}

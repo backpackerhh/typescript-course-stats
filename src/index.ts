@@ -1,32 +1,18 @@
-import { CsvFileReaderWithInterface } from "./CsvFileReaderWithInterface";
 import { RawMatchData } from "./MatchData";
-import { MatchReader } from "./MatchReader";
-import { MatchReaderWithInterface } from "./MatchReaderWithInterface";
+import { MatchReader as InheritanceMatchReader } from "./inheritance/MatchReader";
+import { MatchReader as CompositionMatchReader } from "./composition/MatchReader";
+import { CsvFileReader } from "./composition/CsvFileReader";
 
 const init = async () => {
-  const reader = new MatchReader("../football-stats.csv", [
-    "date",
-    "homeTeam",
-    "awayTeam",
-    "goalsHomeTeam",
-    "goalsAwayTeam",
-    "result",
-    "referee",
-  ]);
+  const filepath = "../../football-stats.csv";
+  const headers = ["date", "homeTeam", "awayTeam", "goalsHomeTeam", "goalsAwayTeam", "result", "referee"];
+  const reader = new InheritanceMatchReader(filepath, headers);
   await reader.read();
 
   console.log(reader.data.length);
 
-  const csvFileReader = new CsvFileReaderWithInterface<RawMatchData>("../football-stats.csv", [
-    "date",
-    "homeTeam",
-    "awayTeam",
-    "goalsHomeTeam",
-    "goalsAwayTeam",
-    "result",
-    "referee",
-  ]);
-  const matchReader = new MatchReaderWithInterface(csvFileReader);
+  const csvFileReader = new CsvFileReader<RawMatchData>(filepath, headers);
+  const matchReader = new CompositionMatchReader(csvFileReader);
   await matchReader.load();
 
   console.log(matchReader.matches.length);
